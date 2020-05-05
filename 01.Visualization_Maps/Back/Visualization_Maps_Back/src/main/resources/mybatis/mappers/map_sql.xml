@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.visualization.maps.map.service.impl.MapMapper">
+
+    <select id="getCityList" parameterType="map" resultType="HashMap">
+        SELECT  CITY_CODE
+               ,CITY_NAME
+          FROM  TB_CITY
+    </select>
+
+    <select id="getBus" parameterType="map" resultType="HashMap">
+        SELECT  ROUTE_NO
+               ,ROUTE_TP
+               ,ROUTE_ID
+               ,CITY_CODE
+          FROM TB_BUS_ROUTES
+         WHERE ROUTE_NO LIKE CONCAT( #{routeNo} , '%' )
+         <if test=' !"".equals( cityCode ) and cityCode != NULL '>
+           AND CITY_CODE = #{cityCode}
+         </if>
+           <!-- AND ROUTE_TP != '광역버스' -->
+    </select>
+
+    <select id="getBusDetailInfoOne" parameterType="map" resultType="HashMap">
+        SELECT  CITY_CODE
+               ,ROUTE_ID
+               ,ROUTE_NO
+               ,ROUTE_TP
+               ,START_NODE_NM
+               ,END_NODE_NM
+               ,START_VEHICLE_TIME
+               ,STOP_VEHICLE_TIME
+          FROM TB_BUS_ROUTES
+         WHERE ROUTE_ID = #{routeId}
+    </select>
+
+    <select id="getBusNodes" parameterType="map" resultType="HashMap">
+
+    SELECT bus.*
+      FROM (
+                SELECT  b.NODE_ID
+                       ,b.ROUTE_ID
+                       ,b.NODE_NM
+                       ,b.NODE_ORD
+                       ,b.NODE_NO
+                       ,b.GPSLATI
+                       ,b.GPSLONG
+                       ,'UP' AS WAY
+                 FROM TB_BUS_ROUTES a
+                INNER JOIN TB_BUS_ROUTE_${cityCode}_NODE b
+                   ON a.ROUTE_ID = b.ROUTE_ID
+                  AND a.route_id= #{routeId}
+                  AND b.node_ord BETWEEN '1' AND (
+                                                   SELECT NODE_ORD
+                                                     FROM TB_BUS_ROUTE_23_NODE
+                                                    WHERE ROUTE_ID=#{routeId}
+                                                      AND NODE_NM = a.end_node_nm
+                                                  )
+                  UNION ALL
+                SELECT  b.NODE_ID
+                       ,b.ROUTE_ID
+                       ,b.NODE_NM
+                       ,b.NODE_ORD
+                       ,b.NODE_NO
+                       ,b.GPSLATI
+                       ,b.GPSLONG
+                       ,'DOWN' AS WAY
+                  FROM TB_BUS_ROUTES a
+                 INNER JOIN TB_BUS_ROUTE_${cityCode}_NODE b
+                    ON a.ROUTE_ID = b.ROUTE_ID
+                   AND a.route_id=#{routeId}
+                   AND b.node_ord >= (
+                                       SELECT NODE_ORD
+                                         FROM TB_BUS_ROUTE_${cityCode}_NODE
+                                        WHERE ROUTE_ID=#{routeId}
+                                          AND NODE_NM = a.end_node_nm
+                                      )
+           ) AS bus
+  ORDER BY bus.node_ord
+    </select>
+
+    <insert id="insertBusNodes" parameterType="map">
+        INSERT INTO TB_BUS_ROUTE_${cityCode}_NODE
+                  (
+                     NODE_ID
+                    ,ROUTE_ID
+                    ,NODE_NM
+                    ,NODE_ORD
+                    ,NODE_NO
+                    ,GPSLATI
+                    ,GPSLONG
+                  )
+             VALUES
+                  (
+                     #{nodeid}
+                    ,#{routeid}
+                    ,#{nodenm}
+                    ,#{nodeord}
+                    ,#{nodeno}
+                    ,#{gpslati}
+                    ,#{gpslong}
+                  )
+    </insert>
+</mapper>
