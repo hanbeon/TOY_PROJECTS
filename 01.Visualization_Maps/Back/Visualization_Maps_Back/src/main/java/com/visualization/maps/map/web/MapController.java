@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.visualization.maps.api.service.ApiService;
 import com.visualization.maps.map.service.MapService;
 
+@CrossOrigin
 @RestController
-@RequestMapping(value="/map/v1/")
+@RequestMapping(value="/map/v1")
 public class MapController {
 
     @Resource(name="mapService")
@@ -32,7 +34,7 @@ public class MapController {
     @Resource(name="apiService")
     private ApiService apiService;
 
-    @RequestMapping(value="/bus/{routeNo}", method = RequestMethod.GET)
+    @GetMapping(value="/bus/{routeNo}")
     public ResponseEntity< Object > getBus(@PathVariable("routeNo") String routeNo) throws Exception{
 
         Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -46,7 +48,7 @@ public class MapController {
         return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/bus/{cityCode}/{routeId}", method = RequestMethod.GET)
+    @GetMapping(value="/bus/{cityCode}/{routeId}")
     public ResponseEntity< Object > getBusNodes(@PathVariable("cityCode") String cityCode
             , @PathVariable("routeId") String routeId) throws Exception{
 

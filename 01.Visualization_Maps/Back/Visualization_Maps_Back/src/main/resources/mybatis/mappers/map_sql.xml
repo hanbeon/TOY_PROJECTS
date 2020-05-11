@@ -2,26 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.visualization.maps.map.service.impl.MapMapper">
 
-    <select id="getCityList" parameterType="map" resultType="HashMap">
+    <select id="getCityList" parameterType="map" resultType="camelMap">
         SELECT  CITY_CODE
                ,CITY_NAME
           FROM  TB_CITY
     </select>
 
-    <select id="getBus" parameterType="map" resultType="HashMap">
+    <select id="getBus" parameterType="map" resultType="camelMap">
         SELECT  ROUTE_NO
                ,ROUTE_TP
                ,ROUTE_ID
                ,CITY_CODE
+               ,TIME_FORMAT(start_vehicle_time,'%i:%s')  AS START_TIME
+               ,TIME_FORMAT(stop_vehicle_time,'%i:%s')   AS STOP_TIME
           FROM TB_BUS_ROUTES
-         WHERE ROUTE_NO LIKE CONCAT( #{routeNo} , '%' )
+         WHERE 1=1
+         <if test=' !"".equals( routeNo ) and routeNo != NULL '>
+           AND ROUTE_NO LIKE CONCAT( #{routeNo} , '%' )
+         </if>
+           AND CITY_CODE ='23'
+           AND ROUTE_TP != '광역버스'
+         <!--
          <if test=' !"".equals( cityCode ) and cityCode != NULL '>
            AND CITY_CODE = #{cityCode}
          </if>
+          -->
            <!-- AND ROUTE_TP != '광역버스' -->
     </select>
 
-    <select id="getBusDetailInfoOne" parameterType="map" resultType="HashMap">
+    <select id="getBusDetailInfoOne" parameterType="map" resultType="camelMap">
         SELECT  CITY_CODE
                ,ROUTE_ID
                ,ROUTE_NO
@@ -34,7 +43,7 @@
          WHERE ROUTE_ID = #{routeId}
     </select>
 
-    <select id="getBusNodes" parameterType="map" resultType="HashMap">
+    <select id="getBusNodes" parameterType="map" resultType="camelMap">
 
     SELECT bus.*
       FROM (
