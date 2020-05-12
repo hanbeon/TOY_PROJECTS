@@ -10,7 +10,7 @@ public class MapController {
     @RequestMapping(value= {"/",""})
     public String test4() throws Exception {
 
-        return "test4";
+        return "main";
     }
 
 }
