@@ -106,7 +106,7 @@ var map3dFunc={
                 console.log(result);
                 var modelCoordinates = new Array();
 
-                if ( result.getBusNodes.getBusNodes != ""  ){
+                if ( result.getBusNodes  ){
 
                     var getBusNodes     = result.getBusNodes.getBusNodes;
                     var getUpWayNodes   = result.getBusNodes.upWayNodes;

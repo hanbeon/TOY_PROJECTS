@@ -172,56 +172,60 @@ map.on('load', function() {
             var coordinateList = map3dFunc.getSelectedBusStopCoordinates(tagId, cityCode);
             console.log(coordinateList);
 
-            if ( map.getLayer("busStopModel") ){
-                map.removeLayer("busStopModel");
-            }
+            if ( coordinateList ){
+                if ( map.getLayer("busStopModel") ){
+                    map.removeLayer("busStopModel");
+                }
 
-            if ( map.getSource("busStopModel") ){
-                map.removeSource("busStopModel");
-            }
+                if ( map.getSource("busStopModel") ){
+                    map.removeSource("busStopModel");
+                }
 
-            var mapOption=
+                var mapOption=
+                    {
+                         "coordinates"  :coordinateList.bustStop
+                        ,"modelId"      :"busStopModel"
+                        ,"modelObj"     :"/resources/AnyConv.com__stationBus.glb"
+                    }
+
+                map3dFunc.addModel(mapOption);
+
+                map.setCenter(coordinateList.bustStop[0]);
+
+                if ( coordinateList.downWay )
                 {
-                     "coordinates"  :coordinateList.bustStop
-                    ,"modelId"      :"busStopModel"
-                    ,"modelObj"     :"/resources/AnyConv.com__stationBus.glb"
+                    if ( map.getLayer(coordinateList.downWay.id) ){
+                        map.removeLayer(coordinateList.downWay.id);
+                    }
+                    if ( map.getSource(coordinateList.downWay.id) ){
+                        map.removeSource(coordinateList.downWay.id);
+                    }
+
+                    map3dFunc.drawRoutePath(coordinateList.downWay);
                 }
 
-            map3dFunc.addModel(mapOption);
+                if ( coordinateList.upWay )
+                {
+                    if ( map.getLayer(coordinateList.upWay.id) ){
+                        map.removeLayer(coordinateList.upWay.id);
+                    }
+                    if ( map.getSource(coordinateList.upWay.id) ){
+                        map.removeSource(coordinateList.upWay.id);
+                    }
 
-            map.setCenter(coordinateList.bustStop[0]);
+                    map3dFunc.drawRoutePath(coordinateList.upWay);
 
-            if ( coordinateList.downWay )
-            {
-                if ( map.getLayer(coordinateList.downWay.id) ){
-                    map.removeLayer(coordinateList.downWay.id);
-                }
-                if ( map.getSource(coordinateList.downWay.id) ){
-                    map.removeSource(coordinateList.downWay.id);
-                }
-
-                map3dFunc.drawRoutePath(coordinateList.downWay);
-            }
-
-            if ( coordinateList.upWay )
-            {
-                if ( map.getLayer(coordinateList.upWay.id) ){
-                    map.removeLayer(coordinateList.upWay.id);
-                }
-                if ( map.getSource(coordinateList.upWay.id) ){
-                    map.removeSource(coordinateList.upWay.id);
                 }
 
-                map3dFunc.drawRoutePath(coordinateList.upWay);
 
+                map3dFunc.realTimeBusLocation(cityCode, tagId);
+
+                /* map.setLayoutProperty("routeUpWay", 'visibility', 'none'); */
+
+                $("#loading-mask").fadeOut();
             }
 
 
-            map3dFunc.realTimeBusLocation(cityCode, tagId);
-
-            /* map.setLayoutProperty("routeUpWay", 'visibility', 'none'); */
-
-            $("#loading-mask").fadeOut();
 
 
         });
