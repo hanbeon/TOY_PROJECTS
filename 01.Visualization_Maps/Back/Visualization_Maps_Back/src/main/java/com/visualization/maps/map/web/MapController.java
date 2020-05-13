@@ -5,21 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.visualization.maps.api.service.ApiService;
 import com.visualization.maps.map.service.MapService;
 
@@ -34,6 +28,11 @@ public class MapController {
     @Resource(name="apiService")
     private ApiService apiService;
 
+    /**
+     * Method      : getBus
+     * Return      : ResponseEntity<Object>
+     * Description : 검색조건에 따른 버스목록 Return
+     */
     @GetMapping(value="/bus/{routeNo}")
     public ResponseEntity< Object > getBus(@PathVariable("routeNo") String routeNo) throws Exception{
 
@@ -48,6 +47,11 @@ public class MapController {
         return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
 
+    /**
+     * Method      : getBusNodes
+     * Return      : ResponseEntity<Object>
+     * Description : 선택한 버스의 정류장목록을 출력.
+     */
     @GetMapping(value="/bus/{cityCode}/{routeId}")
     public ResponseEntity< Object > getBusNodes(@PathVariable("cityCode") String cityCode
             , @PathVariable("routeId") String routeId) throws Exception{
@@ -56,7 +60,6 @@ public class MapController {
         paramMap.put("cityCode", cityCode);
         paramMap.put("routeId", routeId);
 
-
         Map<String,Object> getBusNodes = mapService.getBusNodes(paramMap);
 
         List<Map<String,Object>> tempBusNodes = (List<Map<String, Object>>) getBusNodes.get("getBusNodes");
@@ -64,15 +67,7 @@ public class MapController {
         if ( tempBusNodes.size() < 1 )  {
 
             List< Map<String,Object>> responseBusNodes = apiService.getRouteAcctoThrghSttnList(paramMap);
-
-            Map<String, Object> insertParam = new HashMap<String, Object>();
-            insertParam.putAll(paramMap);
-            insertParam.put("resultData", responseBusNodes);
-
-            mapService.insertBusNodes(insertParam);
-
             getBusNodes = mapService.getBusNodes(paramMap);
-
         }
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
