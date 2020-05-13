@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.visualization.maps.map.service.impl.MapMapper">
 
-    <select id="getCityList" parameterType="map" resultType="camelMap">
+    <select id="getCityList" parameterType="map" resultType="camelHashMap">
         SELECT  CITY_CODE
                ,CITY_NAME
           FROM  TB_CITY
     </select>
 
-    <select id="getBus" parameterType="map" resultType="camelMap">
+    <select id="getBus" parameterType="map" resultType="camelHashMap">
         SELECT  ROUTE_NO
                ,ROUTE_TP
                ,ROUTE_ID
@@ -30,7 +30,7 @@
            <!-- AND ROUTE_TP != '광역버스' -->
     </select>
 
-    <select id="getBusDetailInfoOne" parameterType="map" resultType="camelMap">
+    <select id="getBusDetailInfoOne" parameterType="map" resultType="camelHashMap">
         SELECT  CITY_CODE
                ,ROUTE_ID
                ,ROUTE_NO
@@ -43,7 +43,7 @@
          WHERE ROUTE_ID = #{routeId}
     </select>
 
-    <select id="getBusNodes" parameterType="map" resultType="camelMap">
+    <select id="getBusNodes" parameterType="map" resultType="camelHashMap">
 
     SELECT bus.*
       FROM (

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- Root Context: defines shared resources visible to all other web components -->
-
+    <context:property-placeholder location="classpath:/properties/db.properties"/>
     <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-        <property name="driverClass" value="org.mariadb.jdbc.Driver"></property>
-        <property name="url" value="jdbc:mariadb://jmnas6701.synology.me:3307/public"></property>
-        <property name="username" value="public"></property>
-        <property name="password" value="public"></property>
+        <property name="driverClass" value="${maria.driverClass}"></property>
+        <property name="url" value="${maria.url}"></property>
+        <property name="username" value="${maria.username}"></property>
+        <property name="password" value="${maria.password}"></property>
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

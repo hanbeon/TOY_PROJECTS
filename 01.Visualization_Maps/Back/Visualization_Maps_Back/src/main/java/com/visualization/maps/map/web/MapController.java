@@ -61,12 +61,6 @@ public class MapController {
         paramMap.put("routeId", routeId);
 
         Map<String,Object> getBusNodes = mapService.getBusNodes(paramMap);
-        List<Map<String,Object>> tempBusNodes = (List<Map<String, Object>>) getBusNodes.get("getBusNodes");
-
-        if ( tempBusNodes.size() < 1 )  {
-            List< Map<String,Object>> responseBusNodes = apiService.getRouteAcctoThrghSttnList(paramMap);
-            getBusNodes = mapService.getBusNodes(paramMap);
-        }
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("getBusNodes", getBusNodes);
