@@ -1,4 +1,4 @@
-Application Site Url : http://222.121.219.245:7070/
+Application Site Url : http://222.121.219.245:7070/mapfront/
 
 Technical
 - Web backend - Web Front
