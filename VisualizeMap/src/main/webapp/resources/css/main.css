@@ -1,0 +1,349 @@
+html, body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px
+}
+
+body {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+b, strong, h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.leaflet-container {
+  background-color: #02171c;
+}
+
+.form-control,
+.btn-default {
+  color: #eee;
+  background-color: rgba(0,0,0,.4);
+  border-color: rgba(102,175,234,.4);
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
+}
+.form-control:hover, .form-control:focus, .form-control:active,
+.btn-default:hover, .btn-default:focus, .btn-default:active {
+  color: #eee;
+  background-color: rgba(0,0,0,.8);
+  border-color: rgba(102,175,234,.8);
+}
+
+.input-daterange .input-group-addon {
+  padding: 4px 8px;
+  color: #ccc;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.box {
+  position: absolute;
+  width: 260px;
+  padding: 20px;
+  background: rgba(0,0,0,.6);
+  border-radius: 5px;
+  color: #eee;
+}
+
+.datetime-box.box {
+  top: 10px;
+  left: 10px;
+  font-weight: 300;
+}
+
+.filters.box {
+  top: 170px;
+  left: 10px;
+}
+
+.airlines.box {
+  min-width: 260px;
+  width: auto;
+  top: 170px;
+  left: 280px;
+  display: none;
+  font-size: 13px;
+  font-weight: 400;
+  z-index: 501;
+}
+
+.graph.box {
+  bottom: 10px;
+  left: 10px;
+  width: 600px;
+  height: 185px;
+  padding: 0;
+}
+
+.graph-heading {
+  margin-left: 10px;
+  margin-bottom: 0;
+  font-size: 14px;
+  color: white;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.graph-left {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  font-size: 12px;
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+
+
+.graph-tip {
+  position: absolute;
+  top: 25px;
+  padding: 3px 5px;
+  color: #fff;
+  background: #000;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 500;
+}
+
+.chart {
+  padding-left: 10px;
+}
+  .bar {
+    opacity: .9;
+    fill: steelblue;
+    stroke: transparent;
+    stroke-width: 2px;
+  }
+  .bar:hover {
+    stroke: #fff;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #ddd;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+  }
+  .axis text {
+    fill: #ddd;
+    stroke-width: 0;
+    font-size: 11px;
+    font-weight: 400;
+  }
+
+.box-heading {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.terminals {
+}
+  .terminals .checkbox label {
+    font-weight: 400;
+  }
+  .terminals .checkbox.striked {
+    opacity: .5;
+  }
+
+.airlines > div > div {
+  float: left;
+}
+.airlines > div > div+div {
+  margin-left: 30px;
+}
+
+#map path {
+  opacity: 0;
+  fill: none;
+  stroke-width: 1px;
+}
+  #map path[class^='JFK'] {
+    stroke: #3f9;
+  }
+
+  #map path[class^='LGA'] {
+    stroke: #fc0;
+  }
+
+  #map path[class^='EWR'] {
+   stroke: #099;
+  }
+
+circle {
+  opacity: 0;
+  stroke-width: 0;
+}
+
+#airports circle {
+  opacity: 0.8;
+  fill: yellow;
+}
+  #airports text {
+    stroke-width: 0;
+    opacity: 1;
+    font-weight: 400;
+    background: red;
+  }
+  #airports .JFK,
+  #airports .JFK + text {
+    font-size: 16px;
+    fill: #3f9;
+  }
+  #airports .LGA,
+  #airports .LGA + text {
+    font-size: 14px;
+    fill: #fc0;
+  }
+
+circle[class^='JFK'] {
+  opacity: 1;
+  fill: yellow;
+}
+circle[class^='LGA'] {
+  opacity: 1;
+  fill: #f30;
+}
+circle[class^='EWR'] {
+  opacity: 1;
+  fill: green;
+}
+
+#map.JFKT23-hide .JFKT23,
+#map.JFKT1-hide .JFKT1,
+#map.JFKT4-hide .JFKT4,
+#map.JFKT5-hide .JFKT5,
+#map.JFKT7-hide .JFKT7,
+#map.JFKT8-hide .JFKT8,
+#map.LGAA-hide .LGAA,
+#map.LGAB-hide .LGAB,
+#map.LGAC-hide .LGAC,
+#map.LGAD-hide .LGAD {
+  display: none;
+}
+
+.area {
+  fill: #3366FF;
+}
+
+.empty {
+    fill: #000;
+}
+
+.date {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.time {
+  position: relative;
+  font-size: 42px;
+  line-height: 50px;
+  margin-bottom: 5px;
+}
+
+.datetime-box .controls .btn.speed {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 400;
+  border-width: 2px;
+  padding: 3px 6px;
+  margin-right: 3px;
+  background-color: rgba(0,0,0,.8);
+}
+.datetime-box .controls .btn.speed i {
+  font-size: 13px;
+  color: #ccc;
+}
+.faster {
+  margin-left: 3px;
+}
+
+.tcount {
+  float: right;
+}
+
+.right-head {
+  float: right;
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: 300;
+}
+.overlay {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  height: auto;
+
+  background: rgba(0,0,0,.9);
+  border-radius: 5px;
+  color: #ddd;
+  text-shadow: 1px 1px 1px #000;
+  letter-spacing: 1px;
+
+  z-index: 500;
+
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+
+  -webkit-box-shadow: 0 0 4px rgba(102,175,234,.8);
+  -moz-box-shadow: 0 0 4px rgba(102,175,234,.8);
+  box-shadow: 0 0 4px rgba(102,175,234,.8);
+}
+  .container.overlay {
+    max-width: 720px;
+  }
+  .overlay .innerlay {
+    padding: 40px 30px;
+    background: transparent;
+    margin-bottom: 0;
+  }
+  .overlay .innerlay h3 {
+    font-size: 25px;
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+  .overlay .innerlay p {
+    font-size: 15px;
+    font-weight: 400;
+  }
+  .overlay .innerlay .btn {
+    margin-top: 5px;
+    padding: 8px 20px;
+  }
+
+.legends span {
+  float: left;
+  width: 50%;
+  text-align: center;
+}
+  .legends i {
+    font-size: 16px;
+    top: 3px;
+    margin-right: 10px;
+  }
+  .legends .jfk i {
+    color: #3f9;
+  }
+  .legends .lga i {
+    color: #fc0;
+  }
+
+.time-factor {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 400;
+}
