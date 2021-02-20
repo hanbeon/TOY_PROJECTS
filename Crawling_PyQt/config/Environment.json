@@ -1,0 +1,65 @@
+{
+	"LIST_SEASON": [
+		{
+			"val": "300",
+			"txt": "20 LIVE"
+		},
+		{
+			"val": "506",
+			"txt": "20 Premium Live Autumn"
+		},
+		{
+			"val": "503",
+			"txt": "19 Premium Live Spring"
+		}
+	],
+	"LIST_LEGUE": [
+		{
+			"val": "13",
+			"txt": "\uc789\uae00\ub79c\ub4dc \ud504\ub9ac\ubbf8\uc5b4\ub9ac\uadf8"
+		},
+		{
+			"val": "10",
+			"txt": "\ub124\ub35c\ub780\ub4dc \uc5d0\ub808\ub514\ube44\uc9c0"
+		},
+		{
+			"val": "19",
+			"txt": "\ub3c5\uc77c \ubd84\ub370\uc2a4\ub9ac\uac00"
+		},
+		{
+			"val": "31",
+			"txt": "\uc774\ud0c8\ub9ac\uc544 \uc138\ub9ac\uc5d0 A TIM"
+		},
+		{
+			"val": "76",
+			"txt": "\uae30\ud0c0 \ub9ac\uadf8"
+		},
+		{
+			"val": "53",
+			"txt": "\uc2a4\ud398\uc778 \ub77c\ub9ac\uac00 \uc0b0\ud0c4\ub370\ub974"
+		},
+		{
+			"val": "83",
+			"txt": "\ub300\ud55c\ubbfc\uad6d K\ub9ac\uadf8 1"
+		},
+		{
+			"val": "16",
+			"txt": "\ud504\ub791\uc2a4 \ub9ac\uadf8 1 \uc6b0\ubc84 \uc774\uce20"
+		},
+		{
+			"val": "308",
+			"txt": "\ud3ec\ub974\ud22c\uac08 \ub9ac\uac00 NOS"
+		},
+		{
+			"val": "353",
+			"txt": "\uc544\ub974\ud5e8\ud2f0\ub098 \ub9ac\uac00 \ud504\ub85c\ud398\uc2dc\uc624\ub0a0 \ub370 \ud48b\ubcfc"
+		}
+	],
+	"LIST_POSITION": [],
+	"LIST_OVR": [
+		{
+			"val": 72,
+			"txt": "72"
+		}
+	]
+}
